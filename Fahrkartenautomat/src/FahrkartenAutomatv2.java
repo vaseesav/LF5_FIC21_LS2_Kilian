@@ -32,15 +32,17 @@ class FahrkartenAutomatv2 {
         double zuZahlenBetrag = 0;
         double AnzahlDerTickets = 0;
         double ticketsMalBetrag = 0;
+        final String[] Fahrkartenbezeichnung = {"Einzelfahrschein AB", "Einzelfahrschein BC", "Einzelfahrschein ABC", "Kurzstrecke AB", "Tageskarte AB", "Tageskarte BC", "Tageskarte ABC", "4-Fahrten-Karte AB", "4-Fahrten-Karte BC", "4-Fahrten-Karte ABC", "Kleingruppen-Tageskarte AB", "Kleingruppen-Tageskarte BC", "Kleingruppen-Tageskarte ABC", "Schließen"};
+        final double[] Fahrkartenpreise = {3.00, 3.50, 3.80, 2.00, 8.60, 9.20, 10.00, 9.40, 12.60, 13.80, 25.50, 26.00, 26.50, 0};
 
-        while (zuZahlenderBetrag != 9) {
+
+        while (zuZahlenderBetrag != Fahrkartenbezeichnung.length) {
             // Eingabe des Geldbetreages
-            System.out.print("Wählen Sie ihre Wunschfahrkarte für Berlin AB aus:\n");
-            System.out.print("	Kurzeste Strecke AB [2,00 EUR] (1)\n");
-            System.out.print("	Einzelfahrschein AB [3,00 EUR] (2)\n");
-            System.out.print("	Tageskarte AB [8,80 EUR] (3)\n");
-            System.out.print("	4-Fahrten-Karte AB [9,40 EUR] (4)\n");
-            System.out.print("	Bezahlen (9)\n\n");
+            System.out.println("Fahrkarten Tabelle:");
+            System.out.println("Index | Bezeichnung | Preis in Euro");
+            for (int i = 0; i < Fahrkartenbezeichnung.length; i++) {
+                System.out.println(i + " | " + Fahrkartenbezeichnung[i] + " | " + Fahrkartenpreise[i]);
+            }
 
             zuZahlenderBetrag = 0;
             zuZahlenBetrag = 0;
@@ -48,40 +50,34 @@ class FahrkartenAutomatv2 {
             while (zuZahlenderBetrag > 4 || zuZahlenderBetrag < 1) {
                 System.out.print("Ihre Wahl: ");
                 zuZahlenderBetrag = tastatur.nextInt();
-                if (zuZahlenderBetrag != 9) {
-                    switch (zuZahlenderBetrag) {
-                        case 1:
-                            zuZahlenBetrag = 2;
-                            break;
-                        case 2:
-                            zuZahlenBetrag = 3;
-                            break;
-                        case 3:
-                            zuZahlenBetrag = 8.8;
-                            break;
-                        case 4:
-                            zuZahlenBetrag = 9.4;
-                            break;
-                        default:
-                            System.out.print("	>>falsche Eingabe<<\n");
+                if (zuZahlenderBetrag != 0) {
+                    if (zuZahlenderBetrag == Fahrkartenpreise[zuZahlenderBetrag]) {
+                        zuZahlenBetrag = Fahrkartenpreise[zuZahlenderBetrag];
+                    } else {
+                        System.out.println("Falsche Eingabe");
                     }
-                    AnzahlDerTickets = 0;
-                    while (AnzahlDerTickets > 10 || AnzahlDerTickets < 1) {
-                        System.out.print("Anzahl der Tickets: ");
-                        AnzahlDerTickets = tastatur.nextDouble();
-                        if (AnzahlDerTickets > 10 || AnzahlDerTickets < 1) {
-                            System.out.println(">> Wählen sie bite eine Anzahl von 1 bis 10 Tickets aus. \n");
-                        }
-                    }
-                    ticketsMalBetrag = zuZahlenBetrag * AnzahlDerTickets;
-                } else if (zuZahlenderBetrag == 9) {
-                    break;
+                } else {
+                    System.out.println("Falsche Eingabe");
                 }
-            }
-        }
 
+                AnzahlDerTickets = 0;
+                while (AnzahlDerTickets > 10 || AnzahlDerTickets < 1) {
+                    System.out.print("Anzahl der Tickets: ");
+                    AnzahlDerTickets = tastatur.nextDouble();
+                    if (AnzahlDerTickets > 10 || AnzahlDerTickets < 1) {
+                        System.out.println(">> Wählen sie bite eine Anzahl von 1 bis 10 Tickets aus. \n");
+                    }
+                }
+                ticketsMalBetrag = zuZahlenBetrag * AnzahlDerTickets;
+
+            }
+
+        }
         return ticketsMalBetrag;
     }
+
+
+
 
     /**
      * ist eine Methode, die den Fahrschein ausgibt, indem sie eine Animationsnachricht ausgibt.
